@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ body {
+     background-color: #33cc99;
+ }
+
+
+
+
+ .tirar {
+     
+     justify-content: space-around;
+    padding: 10px;
+    width: 700px;
+    height: 0;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10vh; 
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.tirar2 {
+    color: black;
+    background-color: #48c5ce;
+    font-weight: bold;
+    font-size: 35px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    
+    cursor: pointer;
+}
+
+H1 {
+    text-align: center;
+    font-size: 65px;
+}
+
+a {
+    
+display: block; 
+justify-content: right;
+   font-size: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    </style>
+
+    <script defer src="./face-api.min.js"></script>
+    <title>Reconhecimento Facial</title>
+</head>
+<body>
+
+    <h1>CAMERA </h1>
+  
+  <div  class="tirar">
+    <video width="500" height="280" id="video" autoplay></video>
+    <canvas></canvas>
+
+    <div>
+        
+    <button class="tirar2">Tirar Foto</button>
+    </div>
+
+  </div>
+    
+</body>
+
+
+<script >
+    let video = document.querySelector('video')
+navigator.mediaDevices.getUserMedia({video:true})
+.then(stream => {
+    video.srcObject =stream;
+    video.play();
+})
+.catch(error =>{
+    console.log(error);
+} )
+
+document.querySelector('button').addEventListener('click', () =>    {
+
+    let canvas = document.querySelector('canvas');
+    canvas.height = video.videoHeight;
+    canvas.width = video.videoWidth;
+
+    let context = canvas.getContext('2d');
+
+    context.drawImage(video, 0,0
+        )
+
+
+    let link = document.createElement('a');
+    link.download = 'foto.svg'
+    link.href = canvas.toDataURL();
+    link.textContent = 'Clique para baixar imagem'
+    document.body.appendChild(link);
+});
+
+
+
+</script>
+</html> 
